@@ -2,7 +2,6 @@ package br.com.webflux.exceptions;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;

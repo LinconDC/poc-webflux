@@ -37,16 +37,18 @@ public class UserControllerImpl implements UserController {
 
     @Override
     public ResponseEntity<Flux<UserResponse>> findAll() {
-        return null;
+        return ResponseEntity.ok(
+                service.findAll().map(mapper::toResponse)
+        );
     }
 
     @Override
     public ResponseEntity<Mono<UserResponse>> update(String id, UserRequest request) {
-        return null;
+        return ResponseEntity.ok(service.update(id, request).map(mapper::toResponse));
     }
 
     @Override
     public ResponseEntity<Mono<Void>> delete(String id) {
-        return null;
+        return ResponseEntity.ok().body(service.delete(id).then());
     }
 }

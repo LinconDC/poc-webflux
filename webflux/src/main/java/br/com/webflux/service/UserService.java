@@ -6,6 +6,7 @@ import br.com.webflux.model.request.UserRequest;
 import br.com.webflux.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -21,5 +22,17 @@ public class UserService {
 
     public Mono<User> findById(final String id) {
         return repository.findById(id);
+    }
+
+    public Flux<User> findAll() { return repository.findAll(); }
+
+    public Mono<User> update(final String id, final UserRequest request) {
+        return findById(id)
+                .map(entity -> mapper.toEntity(request, entity))
+                .flatMap(repository::save);
+    }
+
+    public Mono<User> delete(final String id) {
+        return repository.findAndRemove(id);
     }
 }
